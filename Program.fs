@@ -9,14 +9,14 @@ open dirsplitter.reverse
 let GBMUltiple = 1000.0 ** 3
 
 let parseArgs (args: ParseResults<ActionArgs>) =
-    Path.GetFullPath(args.GetResult(ActionArgs.Dir, defaultValue = ".")),
+    Path.GetFullPath(args.GetResult(Dir, defaultValue = ".")),
     int64 (
         args.GetResult(Max, defaultValue = 5.0)
         * GBMUltiple
     ),
     args.GetResult(Prefix, defaultValue = "")
 
-let getDir (args: ParseResults<TargetDir>) =
+let getDir (args: ParseResults<ActionArgs>) =
     Path.GetFullPath(args.GetResult(Dir, defaultValue = "."))
 
 [<EntryPoint>]
