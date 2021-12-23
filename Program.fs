@@ -1,12 +1,19 @@
 ﻿open System
 open Argu
+open System.IO
 open dirsplitter
 open dirsplitter.split
 open dirsplitter.reverse
 
+
+let GBMUltiple = 1024.0 ** 3
+
 let parseArgs (args: ParseResults<ActionArgs>) =
-    args.GetResult(Dir, defaultValue = "."),
-    args.GetResult(Max, defaultValue = 5.0),
+    Path.GetFullPath(args.GetResult(Dir, defaultValue = ".")),
+    int64 (
+        args.GetResult(Max, defaultValue = 5.0)
+        * GBMUltiple
+    ),
     args.GetResult(Prefix, defaultValue = "")
 
 [<EntryPoint>]
@@ -23,6 +30,8 @@ let main argv =
         match mode with
         | Split args -> splitDir (parseArgs args)
         | Reverse args -> reverseSplit (parseArgs args)
+
+
     with
     | e -> printfn "%s" e.Message
 
