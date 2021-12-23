@@ -26,13 +26,12 @@ let splitDir (dir, maxBytes: int64, prefix) =
     |> Seq.iter (fun filepath ->
         let file = FileInfo(filepath)
         let size = file.Length
-        let mutable currentPartSize = tracker |> findOrZero currentPart
+        let currentPartSize = tracker |> findOrZero currentPart
 
         let decrementOnFailure =
             if currentPartSize > 0
                && (currentPartSize + size) > maxBytes then
                 currentPart <- currentPart + 1
-                currentPartSize <- 0
                 true
             else
                 false
