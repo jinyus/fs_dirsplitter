@@ -14,9 +14,18 @@ type ActionArgs =
             | Max _ -> "Max part size in GB."
             | Prefix _ -> "Prefix for output files of the tar command."
 
+type TargetDir =
+    | [<AltCommandLine("-d")>] Dir of directory: string
+
+    interface IArgParserTemplate with
+        member this.Usage =
+            match this with
+            | Dir _ -> "Target directory."
+
+
 type DirSplitterArgs =
     | [<CliPrefix(CliPrefix.None)>] Split of ParseResults<ActionArgs>
-    | [<CliPrefix(CliPrefix.None)>] Reverse of ParseResults<ActionArgs>
+    | [<CliPrefix(CliPrefix.None)>] Reverse of ParseResults<TargetDir>
 
     interface IArgParserTemplate with
         member this.Usage =
