@@ -18,9 +18,11 @@ type ActionArgs =
 type DirSplitterArgs =
     | [<CliPrefix(CliPrefix.None)>] Split of ParseResults<ActionArgs>
     | [<CliPrefix(CliPrefix.None)>] Reverse of ParseResults<ActionArgs>
+    | [<AltCommandLine("-v")>] Version
 
     interface IArgParserTemplate with
         member this.Usage =
             match this with
             | Split _ -> "Split directories into a specified maximum size."
             | Reverse _ -> "Opposite of the main function, moves all files from part folders to the root."
+            | Version -> "Display the app version"
