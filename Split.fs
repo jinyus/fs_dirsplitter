@@ -2,6 +2,7 @@ module dirsplitter.split
 
 open dirsplitter.util
 open System.IO
+open System.Text.RegularExpressions
 
 type SplitResult =
     { tracker: Map<int, int64>
@@ -71,9 +72,14 @@ let moveFile (state: SplitResult) (filepath: string) dir maxBytes : SplitResult 
 
 
 let splitDir (dir, maxBytes: int64, prefix) =
+    let sep = Path.DirectorySeparatorChar
+
+    // used to exclude files moved to newly created partDirs from getAllFiles
+    let partDirRe = $"{dir}{sep}part\d+{sep}.*"
+
     let result =
         getAllFiles dir
-        |> Seq.toList
-        |> List.fold (fun r s -> moveFile r s dir maxBytes) SplitResult.Default
+        |> Seq.where (fun s -> not (Regex.IsMatch(s, partDirRe)))
+        |> Seq.fold (fun r s -> moveFile r s dir maxBytes) SplitResult.Default
 
-    printfn "result %O %i" result maxBytes
+    printfn "result %O %i" "result" maxBytes
