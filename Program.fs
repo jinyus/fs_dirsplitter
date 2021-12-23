@@ -6,7 +6,7 @@ open dirsplitter.split
 open dirsplitter.reverse
 
 
-let GBMUltiple = 1024.0 ** 3
+let GBMUltiple = 1000.0 ** 3
 
 let parseArgs (args: ParseResults<ActionArgs>) =
     Path.GetFullPath(args.GetResult(Dir, defaultValue = ".")),
