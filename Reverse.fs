@@ -4,9 +4,11 @@ open System.IO
 open dirsplitter.util
 open System.Text.RegularExpressions
 
+let sep = Path.DirectorySeparatorChar
+
+
 // move file and return the part directory for deletion
 let moveFile (dir: string) (filepath: string) : option<string> =
-    let sep = Path.DirectorySeparatorChar
     let partDirRe = $"{dir}{sep}part\d+"
     let partDir = (Regex.Match(filepath, partDirRe)).Value
     let dest = filepath.Replace(partDir, dir)
@@ -22,8 +24,6 @@ let moveFile (dir: string) (filepath: string) : option<string> =
         None
 
 let reverseSplit dir =
-    let sep = Path.DirectorySeparatorChar
-
     // used to include only files in partDirs from getAllFiles
     let partDirRe = $"{dir}{sep}part\d+{sep}.*"
 
