@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Include="Arguments.fs" />
+    <Compile Include="Util.fs" />
     <Compile Include="Split.fs" />
     <Compile Include="Reverse.fs" />
     <Compile Include="Program.fs" />
