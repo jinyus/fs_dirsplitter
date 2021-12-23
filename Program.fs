@@ -11,16 +11,8 @@ let parseArgs (args: ParseResults<ActionArgs>) =
 
 [<EntryPoint>]
 let main argv =
-    let errorHandler =
-        ProcessExiter(
-            colorizer =
-                function
-                | ErrorCode.HelpText -> None
-                | _ -> Some ConsoleColor.Red
-        )
-
     let parser =
-        ArgumentParser.Create<DirSplitterArgs>(programName = "dirsplitter", errorHandler = errorHandler)
+        ArgumentParser.Create<DirSplitterArgs>(programName = "dirsplitter")
 
     try
         let result =
