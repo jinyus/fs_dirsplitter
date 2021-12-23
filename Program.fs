@@ -16,6 +16,9 @@ let parseArgs (args: ParseResults<ActionArgs>) =
     ),
     args.GetResult(Prefix, defaultValue = "")
 
+let getDir (args: ParseResults<ActionArgs>) =
+    Path.GetFullPath(args.GetResult(Dir, defaultValue = "."))
+
 [<EntryPoint>]
 let main argv =
     let parser =
@@ -29,7 +32,7 @@ let main argv =
 
         match mode with
         | Split args -> splitDir (parseArgs args)
-        | Reverse args -> reverseSplit (parseArgs args)
+        | Reverse args -> reverseSplit (getDir args)
 
 
     with
