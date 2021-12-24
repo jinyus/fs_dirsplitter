@@ -11,7 +11,7 @@ let printTrackerMap (map: Map<int, int64>) =
     for KeyValue (key, value) in map do
         printfn "part%i : %iMB" key (value / int64 (1000.0 ** 2))
 
-let splitDir (dir, maxBytes: int64, prefix) =
+let splitDir (dir, maxBytes: int64, prefix: string) =
     let mutable tracker: Map<int, int64> = Map.empty
     let mutable currentPart = 1
     let mutable filesMoved = 0
@@ -63,3 +63,18 @@ let splitDir (dir, maxBytes: int64, prefix) =
 
     printfn "Results:\nFiles Moved : %i \nFailed Operations : %i" filesMoved failedOps
     tracker |> printTrackerMap
+
+    if currentPart > 0 && prefix.Trim().Length <> 0 then
+        let newPrefix =
+            if prefix.EndsWith "." then
+                prefix
+            else
+                prefix + "."
+
+        if currentPart = 1 then
+            printfn """Tar Command : tar -cf "%spart1.tar" "part1"; done""" newPrefix
+        else
+            printfn
+                """Tar Command : for n in {{1..%i}}; do tar -cf "%spart$n.tar" "part$n"; done"""
+                currentPart
+                newPrefix
