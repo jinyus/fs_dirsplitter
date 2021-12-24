@@ -5,7 +5,7 @@ open dirsplitter
 open dirsplitter.split
 open dirsplitter.reverse
 
-let version = "1.0.0"
+let version = "1.0.1"
 let GBMUltiple = 1000.0 ** 3
 
 let parseArgs (args: ParseResults<ActionArgs>) =
