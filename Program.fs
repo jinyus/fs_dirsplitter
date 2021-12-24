@@ -28,12 +28,13 @@ let main argv =
         let result =
             parser.ParseCommandLine(inputs = argv, raiseOnUsage = true)
 
-        let mode = result.GetAllResults().Head
+        let mode = result.GetAllResults()
 
         match mode with
-        | Split args -> splitDir (parseArgs args)
-        | Reverse args -> reverseSplit (getDir args)
-        | Version -> printfn "Dirsplitter version : %s" version
+        | [ Split args ] -> splitDir (parseArgs args)
+        | [ Reverse args ] -> reverseSplit (getDir args)
+        | [ Version ] -> printfn "Dirsplitter version : %s" version
+        | _ -> printfn "%s" (parser.PrintUsage())
 
 
     with
