@@ -6,8 +6,8 @@ open System.Text.RegularExpressions
 
 let sep = Path.DirectorySeparatorChar
 
-
-let isCorrupt source = source |> List.exists Option.isNone
+// returns true if the source contains any instance of None
+let isCorrupt (source: list<option<'a>>) : bool = source |> List.exists Option.isNone
 
 // returns an empty list if a the input list
 // is corrupted (ie: it contains a None)
@@ -17,7 +17,7 @@ let isCorrupt source = source |> List.exists Option.isNone
 // skip deletion of the part directories
 let AllOrNone source =
     if isCorrupt source then
-        []
+        List.empty
     else
         source |> List.map Option.get
 
