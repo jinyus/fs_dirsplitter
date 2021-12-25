@@ -35,8 +35,6 @@ let main argv =
         | [ Reverse args ] -> reverseSplit (getDir args)
         | [ Version ] -> printfn "Dirsplitter version : %s" version
         | _ -> printfn "%s" (parser.PrintUsage())
-
-
     with
     | e -> printfn "%s" e.Message
 
