@@ -1,7 +1,14 @@
 from pathlib import Path
 import os
+import re
 
-version = '1.0.1'
+version_re = r'version\s=\s"(.*?)"'
+version = ''
+# get version text from fsharp file
+with open('./Program.fs', 'r') as fs_file:
+    text = fs_file.read()
+    version = re.search(version_re, text).group(1)
+
 
 tar_names = {
     'linux-x64': f'fs_dirsplitter_{version}_linux_amd64.tar.gz',
