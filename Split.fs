@@ -7,9 +7,10 @@ open System.Text.RegularExpressions
 
 let increment key byAmount (map: Map<int, int64>) = map |> incrementMap key byAmount
 
-let printTrackerMap (map: Map<int, int64>) =
-    for KeyValue (key, value) in map do
-        printfn "part%i : %iMB" key (value / int64 (1000.0 ** 2))
+let formatOutput result key value =
+    sprintf "%s\npart%i : %iMB" result key (value / int64 (1000.0 ** 2))
+
+let trackerMapToString (map: Map<int, int64>) = map |> Map.fold formatOutput ""
 
 let splitDir (dir, maxBytes: int64, prefix: string) =
     let mutable tracker: Map<int, int64> = Map.empty
@@ -61,8 +62,12 @@ let splitDir (dir, maxBytes: int64, prefix: string) =
                     currentPart)
 
 
-    printfn "Results:\nFiles Moved : %i \nFailed Operations : %i" filesMoved failedOps
-    tracker |> printTrackerMap
+    printfn
+        "Results:\n\nFiles Moved : %i \nFailed Operations : %i\n%s\n"
+        filesMoved
+        failedOps
+        (tracker |> trackerMapToString)
+
 
     if currentPart > 0 && prefix.Trim().Length <> 0 then
         let newPrefix =
