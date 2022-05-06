@@ -79,7 +79,4 @@ let splitDir (dir, maxBytes: int64, prefix: string) =
         if currentPart = 1 then
             printfn """Tar Command : tar -cf "%spart1.tar" "part1"; done""" newPrefix
         else
-            printfn
-                """Tar Command : for n in {{1..%i}}; do tar -cf "%spart$n.tar" "part$n"; done"""
-                currentPart
-                newPrefix
+            printfn """Tar Command : for n in {1..%i}; do tar -cf "%spart$n.tar" "part$n"; done""" currentPart newPrefix
