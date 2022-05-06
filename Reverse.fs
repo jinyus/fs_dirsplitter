@@ -39,6 +39,10 @@ let moveFile (dir: string) (filepath: string) : option<string> =
         None
 
 let reverseSplit dir =
+
+    confirmOperation $"""Reverse Split "{dir}" """
+
+
     // used to include only files in partDirs from getAllFiles
     let partDirRe = $"{dir}{sep}part\d+{sep}.*"
 

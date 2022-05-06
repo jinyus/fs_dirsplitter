@@ -23,3 +23,12 @@ let findOrZero key (map: Map<int, int64>) =
     match map.TryFind key with
     | Some v -> v
     | None -> 0
+
+
+let confirmOperation s =
+    printf "%s \n(yes/no) : " s
+
+    let ans =
+        System.Console.ReadLine().Trim().ToLower()
+
+    if ans = "n" || ans = "no" then exit 0

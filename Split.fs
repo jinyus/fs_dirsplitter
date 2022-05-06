@@ -13,6 +13,10 @@ let formatOutput result key value =
 let trackerMapToString (map: Map<int, int64>) = map |> Map.fold formatOutput ""
 
 let splitDir (dir, maxBytes: int64, prefix: string) =
+
+    confirmOperation $"""Split "{dir}" into {float (maxBytes) / 1000_000_000.0}GB parts?"""
+
+
     let mutable tracker: Map<int, int64> = Map.empty
     let mutable currentPart = 1
     let mutable filesMoved = 0
