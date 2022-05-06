@@ -8,16 +8,23 @@ open dirsplitter.reverse
 let version = "1.0.2"
 let GBMUltiple = 1000.0 ** 3
 
-let parseArgs (args: ParseResults<ActionArgs>) =
-    Path.GetFullPath(args.GetResult(Dir, defaultValue = ".")),
-    int64 (
-        args.GetResult(Max, defaultValue = 5.0)
-        * GBMUltiple
-    ),
-    args.GetResult(Prefix, defaultValue = "")
-
 let getDir (args: ParseResults<ActionArgs>) =
     Path.GetFullPath(args.GetResult(Dir, defaultValue = "."))
+
+let parseArgs (args: ParseResults<ActionArgs>) =
+    let maxSize =
+        int64 (
+            args.GetResult(Max, defaultValue = 5.0)
+            * GBMUltiple
+        )
+
+    let prefix =
+        args.GetResult(Prefix, defaultValue = "")
+
+
+    (getDir args), maxSize, prefix
+
+
 
 [<EntryPoint>]
 let main argv =
