@@ -2,7 +2,7 @@
 Split large directories into parts of a specified maximum size. This is a f# port of my dirsplitter tool.
 
 This version is about 40MB<br>
-[Go version](https://github.com/jinyus/dirsplitter) (5MB exe)<br>
+[Go version](https://github.com/jinyus/dirsplitter) (3MB exe)<br>
 [Nim Version](https://github.com/jinyus/nim_dirsplitter) (200KB exe) <br> 
 [Crystal Version](https://github.com/jinyus/cr_dirsplitter) (300KB exe)
 
